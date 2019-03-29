@@ -7,28 +7,38 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-
 import React, { Component } from 'react';
 import { AppRegistry, Text, View } from 'react-native';
+import MainScreen from './screens/MainScreen'
+import CategoryScreen from './screens/CategoryScreen'
+import AddOutgoScreen from './screens/AddOutgoScreen';
+import {
+    createStackNavigator,
+    createAppContainer
+} from 'react-navigation';
 
-class Greeting extends Component {
+class App extends React.Component {
     render() {
         return (
-            <View style={{alignItems: 'center'}}>
-                <Text>Hello {this.props.name}!</Text>
-            </View>
+           <AppStackNavigator></AppStackNavigator>
         );
     }
 }
 
-export default class LotsOfGreetings extends Component {
-    render() {
-        return (
-            <View style={{alignItems: 'center'}}>
-                <Greeting name='Rexxar' />
-                <Greeting name='Jainadddd' />
-                <Greeting name='Valeera' />
-            </View>
-        );
+
+const AppStackNavigator =  createStackNavigator({
+    Main:{
+        screen:MainScreen
+    },
+    Category:{
+        screen:CategoryScreen
+    },
+    Outgo:{
+        screen:AddOutgoScreen
     }
-}
+});
+
+const AppQ = createAppContainer(AppStackNavigator);
+
+export default AppQ;
+

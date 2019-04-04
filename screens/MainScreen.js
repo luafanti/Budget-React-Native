@@ -19,6 +19,8 @@ class CategoryScreen extends Component {
                         onPress={() => this.props.navigation.navigate('Category')} />
                 <Button title="Go To Outgo"
                         onPress={() => this.props.navigation.navigate('Outgo')} />
+                <Button title="Go To Test"
+                        onPress={() => this.props.navigation.navigate('Test')} />
             </View>
         );
     }

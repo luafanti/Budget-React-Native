@@ -8,10 +8,11 @@ import {
     TouchableOpacity,
     View
 } from 'react-native'
+import {addCategory , getCategory} from '../services/CategoryApiService'
 
 
-
-const renderInput = ({ input: { onChange, ...restInput }}) => {
+const renderInput = ({ input, input: { onChange, ...restInput }}) => {
+    console.log(`Input ${JSON.stringify(restInput)}`);
     return <TextInput style={styles.input} onChangeText={onChange} {...restInput} />
 }
 
@@ -20,8 +21,9 @@ const CategoryForm = props => {
 
     const submit = values => {
         console.log('submitting form', values)
+        console.log('10.0.2.2:3000/category')
 
-        
+         addCategory(values);
     }
 
     return (
@@ -36,11 +38,11 @@ const CategoryForm = props => {
             </TouchableOpacity>
         </View>
     )
-}
+};
 
 export default reduxForm({
     form: 'categoryForm'
-})(CategoryForm)
+})(CategoryForm);
 
 
 const styles = StyleSheet.create({
@@ -62,4 +64,4 @@ const styles = StyleSheet.create({
         height: 37,
         width: 250
     }
-})
+});

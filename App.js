@@ -17,15 +17,12 @@ import {
     createStackNavigator,
     createAppContainer
 } from 'react-navigation';
-import store from "./config/store";
-import Provider from "react-redux/es/components/Provider";
+
 
 class App extends React.Component {
     render() {
         return (
-            <Provider store={store}>
            <AppStackNavigator></AppStackNavigator>
-            </Provider>
         );
     }
 }

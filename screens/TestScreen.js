@@ -1,11 +1,8 @@
-import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    TextInput
-} from "react-native";
+import React, {Component} from "react";
+import {StyleSheet, Text, TextInput, View} from "react-native";
+import {Provider} from "react-redux";
+import store from "../config/store";
+
 
 class TestScreen extends Component {
 
@@ -13,6 +10,12 @@ class TestScreen extends Component {
         return (
 
             <View style={styles.container}>
+
+
+                <Provider store= {store}>
+                    <Text>USE STORE </Text>
+                </Provider>
+
 
                 <TextInput
                     style={{height: 40}}
@@ -52,7 +55,6 @@ class TestTextComponent extends Component{
 TestTextComponent.defaultProps = {
     testMessage: 'Heading One'
 }
-
 
 export default TestScreen;
 

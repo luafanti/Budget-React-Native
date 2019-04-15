@@ -21,9 +21,7 @@ const CategoryForm = props => {
 
     const submit = values => {
         console.log('submitting form', values)
-        console.log('10.0.2.2:3000/category')
-
-         addCategory(values);
+        addCategory(values);
     }
 
     return (

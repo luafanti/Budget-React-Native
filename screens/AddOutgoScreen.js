@@ -6,6 +6,7 @@ import {
     Button
 } from "react-native";
 
+
 class AddOutgoScreen extends Component {
 
     render() {

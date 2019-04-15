@@ -3,23 +3,26 @@ import {
     View,
     Text,
     StyleSheet,
-    Button
+    Button,
+    FlatList
 } from "react-native";
 import CategoryForm from '../components/CategoryForm'
 import { Provider } from "react-redux";
 import store from "../config/store";
+import FlatListDemo from "../components/FlatListDemo";
 
 
 class CategoryScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View >
                 <Text>Category</Text>
                 <Provider store= {store}>
-                    <CategoryForm/>
+                    <CategoryForm style={styles.container} />
                 </Provider>
 
+                <FlatListDemo/>
             </View>
         );
     }

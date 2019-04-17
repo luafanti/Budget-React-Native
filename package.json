@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "android-dev": "ENVFILE=.env.dev react-native run-android",
+    "android-staging": "ENVFILE=.env.staging react-native run-android",
+    "android-prod": "ENVFILE=.env.prod react-native run-android"
   },
   "dependencies": {
     "aws-amplify": "^1.1.19",
@@ -12,6 +15,7 @@
     "moment": "^2.24.0",
     "react": "16.6.3",
     "react-native": "0.58.4",
+    "react-native-config": "^0.11.7",
     "react-native-gesture-handler": "^1.1.0",
     "react-navigation": "^3.5.1",
     "react-redux": "^6.0.1",

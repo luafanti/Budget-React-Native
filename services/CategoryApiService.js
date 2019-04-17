@@ -1,8 +1,9 @@
+import Config from 'react-native-config'
 
 export async function getCategory() {
 
     try {
-        const response = await fetch(`http://10.0.2.2:3000/category`);
+        const response = await fetch(`${Config.API_GATEWAY_URL}/category`);
         const responseJson = await response.json();
         // console.log(`RES ${JSON.stringify(responseJson)}`)
         return responseJson;
@@ -13,7 +14,7 @@ export async function getCategory() {
 
 export async function addCategory(category) {
     try {
-        const response = await fetch(`http://10.0.2.2:3000/category`,
+        const response = await fetch(`${Config.API_GATEWAY_URL}/category`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json',},
@@ -31,7 +32,7 @@ export async function addCategory(category) {
 export async function deleteCategory(categoryId) {
 
     try {
-        const response = await fetch(`http://10.0.2.2:3000/category/${categoryId}`,
+        const response = await fetch(`${Config.API_GATEWAY_URL}/category/${categoryId}`,
             {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'},

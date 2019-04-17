@@ -23,7 +23,7 @@ export function fetchCategories() {
             .then(handleErrors)
             .then(res => res.json())
             .then(json => {
-                console.log(`YO YO YO ${JSON.stringify(json)}`)
+                console.log(`Response from GET Category ${JSON.stringify(json)}`)
                 dispatch(fetchCategorySuccess(json));
                 return json;
             })

@@ -20,9 +20,9 @@ class CategoryScreen extends Component {
                 <Text>Category</Text>
                 <Provider store= {store}>
                     <CategoryForm style={styles.container} />
-                </Provider>
 
                 <FlatListDemo/>
+                </Provider>
             </View>
         );
     }

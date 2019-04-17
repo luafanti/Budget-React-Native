@@ -9,10 +9,11 @@ import {
     View
 } from 'react-native'
 import {addCategory , getCategory} from '../services/CategoryApiService'
+import {fetchCategories} from "../actions/CategoryActions";
+import store from "../config/store";
 
 
 const renderInput = ({ input, input: { onChange, ...restInput }}) => {
-    console.log(`Input ${JSON.stringify(restInput)}`);
     return <TextInput style={styles.input} onChangeText={onChange} {...restInput} />
 }
 
@@ -20,8 +21,13 @@ const CategoryForm = props => {
     const { handleSubmit } = props
 
     const submit = values => {
-        console.log('submitting form', values)
+        console.log('Submitting form', values)
         addCategory(values);
+
+        this.setTimeout(() => {
+            store.dispatch(fetchCategories());
+        }, 200);
+
     }
 
     return (

@@ -5,17 +5,18 @@ import {
     StyleSheet,
     Button
 } from "react-native";
+import { Provider } from 'react-redux'
+import UserComponent from "../components/UserComponent";
+import store from "../config/store";
 
 
 class AddOutgoScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Outgo</Text>
-                <Button title="Go to Main Screen"
-                        onPress={() => this.props.navigation.navigate('Main')} />
-            </View>
+            <Provider store={store}>
+                <UserComponent />
+            </Provider>
         )
     }
 }

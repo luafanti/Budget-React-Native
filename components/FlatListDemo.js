@@ -1,45 +1,31 @@
 import React, { Component } from "react";
 import { View, Text, FlatList} from "react-native";
 import { List, ListItem, SearchBar } from "react-native-elements";
-import {getCategory} from '../services/CategoryApiService'
+import {fetchCategories} from '../actions/CategoryActions'
+import { connect } from "react-redux";
 
 
 class FlatListDemo extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchCategories());
+    }
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            loading: false,
-            data: [],
-            error: null,
-            refreshing: false,
-        };
     }
-
-    componentDidMount() {
-        this.makeRemoteRequest();
-    }
-
-    makeRemoteRequest = async () => {
-        const resp = await getCategory();
-        this.setState({
-            data: resp,
-            loading: false,
-            refreshing: false
-        });
-    };
 
     render() {
+        const { error, loading, categories } = this.props;
         return (
                 <List>
                     <FlatList
-                        data={this.state.data}
-                        extraData={this.state.data}
+                        data={categories.categories}
+                        extraData={categories.categories}
                         renderItem={({ item }) => (
                             <ListItem
                                 title={`${item.MainCategory} ${item.SubCategory}`}
                                 subtitle={item.Username}
-
                             />
                         )}
                         keyExtractor={(item) => item.CategoryId}
@@ -49,4 +35,10 @@ class FlatListDemo extends Component {
     }
 }
 
-export default FlatListDemo;
+const mapStateToProps = state => ({
+    categories: state.categories.items,
+    loading: state.categories.loading,
+    error: state.categories.error
+});
+
+export default connect(mapStateToProps)(FlatListDemo);

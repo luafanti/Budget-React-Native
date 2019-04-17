@@ -5,7 +5,7 @@ import {fetchCategories} from '../actions/CategoryActions'
 import { connect } from "react-redux";
 
 
-class FlatListDemo extends Component {
+class CategoryList extends Component {
     componentDidMount() {
         this.props.dispatch(fetchCategories());
     }
@@ -17,6 +17,12 @@ class FlatListDemo extends Component {
 
     render() {
         const { error, loading, categories } = this.props;
+
+        if(error){
+            return (
+                <Text>Connect error</Text>
+            );
+        }
         return (
                 <List>
                     <FlatList
@@ -41,4 +47,4 @@ const mapStateToProps = state => ({
     error: state.categories.error
 });
 
-export default connect(mapStateToProps)(FlatListDemo);
+export default connect(mapStateToProps)(CategoryList);

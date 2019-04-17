@@ -9,7 +9,7 @@ import {
 import CategoryForm from '../components/CategoryForm'
 import { Provider } from "react-redux";
 import store from "../config/store";
-import FlatListDemo from "../components/FlatListDemo";
+import CategoryList from "../components/CategoryList";
 
 
 class CategoryScreen extends Component {
@@ -21,7 +21,7 @@ class CategoryScreen extends Component {
                 <Provider store= {store}>
                     <CategoryForm style={styles.container} />
 
-                <FlatListDemo/>
+                <CategoryList/>
                 </Provider>
             </View>
         );

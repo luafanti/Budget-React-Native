@@ -7,43 +7,19 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, { Component } from 'react';
-import { AppRegistry, Text, View } from 'react-native';
-import MainScreen from './screens/MainScreen'
-import CategoryScreen from './screens/CategoryScreen'
-import AddOutgoScreen from './screens/AddOutgoScreen'
-import TestScreen from './screens/TestScreen'
-import {
-    createStackNavigator,
-    createAppContainer
-} from 'react-navigation';
-
+import React from 'react';
+import {createAppContainer} from 'react-navigation';
+import MainBottomNavigation from './components/MainBottomNavigation';
 
 class App extends React.Component {
     render() {
         return (
-           <AppStackNavigator></AppStackNavigator>
+           <MainBottomNavigation></MainBottomNavigation>
         );
     }
 }
 
-
-const AppStackNavigator =  createStackNavigator({
-    Main:{
-        screen:MainScreen
-    },
-    Category:{
-        screen:CategoryScreen
-    },
-    Outgo:{
-        screen:AddOutgoScreen
-    },
-    Test:{
-        screen:TestScreen
-    }
-});
-
-const AppQ = createAppContainer(AppStackNavigator);
+const AppQ = createAppContainer(MainBottomNavigation);
 
 export default AppQ;
 

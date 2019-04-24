@@ -6,10 +6,12 @@ import people from '../reducers/UserReducer'
 const middleware = [thunk];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 import categories from "../reducers/CategoryReducer";
+import categoryModal from '../reducers/CategoryModalReducer';
 
 const rootReducer = combineReducers({
     people,
     categories,
+    categoryModal,
     form: formReducer
 });
 

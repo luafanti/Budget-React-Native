@@ -1,25 +1,29 @@
-import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    FlatList
-} from "react-native";
-import CategoryForm from '../components/CategoryForm'
-import { Provider } from "react-redux";
+import React, {Component} from "react";
+import {Button, StyleSheet, View} from "react-native";
+import {Provider} from "react-redux";
 import store from "../config/store";
 import CategoryList from "../components/CategoryList";
+import CategoryFormModal from '../components/CategoryFormModal';
+import {showAddCategoryModal} from "../actions/CategoryActions";
 
 
 class CategoryScreen extends Component {
 
+    onClickHandler = () => {
+        store.dispatch(showAddCategoryModal(true));
+    }
+
     render() {
         return (
             <View >
-                <Text>Category</Text>
                 <Provider store= {store}>
-                    <CategoryForm style={styles.container} />
+                    <View>
+                        <Button title = 'Add'
+                                style = { styles.placeButton }
+                                onPress = { this.onClickHandler }
+                        />
+                        <CategoryFormModal/>
+                    </View>
 
                 <CategoryList/>
                 </Provider>

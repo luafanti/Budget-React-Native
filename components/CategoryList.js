@@ -1,23 +1,24 @@
-import React, { Component } from "react";
-import { View, Text, FlatList,TouchableWithoutFeedback} from "react-native";
-import { List, ListItem, SearchBar } from "react-native-elements";
+import React, {Component} from "react";
+import {SectionList, StyleSheet, Text} from "react-native";
 import {fetchCategories} from '../actions/CategoryActions'
-import { connect } from "react-redux";
-import {addCategory, deleteCategory} from "../services/CategoryApiService";
+import {connect} from "react-redux";
+import {deleteCategory, transformCategoriesToSections} from "../services/CategoryApiService";
 import store from "../config/store";
 
 
 class CategoryList extends Component {
+
     componentDidMount() {
         this.props.dispatch(fetchCategories());
     }
+
     constructor(props) {
         super(props);
     }
 
-    deleteCategory({CategoryId}) {
-        console.log('Selected Item :', CategoryId);
-        deleteCategory(CategoryId);
+    deleteCategory = (categoryId) => {
+        console.log('Selected Item :', categoryId);
+        deleteCategory(categoryId);
 
         setTimeout(() => {
             store.dispatch(fetchCategories());
@@ -32,25 +33,26 @@ class CategoryList extends Component {
                 <Text>Connect error</Text>
             );
         }
-        return (
-                <List>
-                    <FlatList
-                        data={categories.categories}
-                        extraData={categories.categories}
-                        renderItem={({ item }) => (
 
-                            <TouchableWithoutFeedback onPress={ () => this.deleteCategory(item)}>
-                                <ListItem
-                                    title={`${item.MainCategory} ${item.SubCategory}`}
-                                    subtitle={item.Username}
-                                />
-                            </TouchableWithoutFeedback>
-                        )}
-                        keyExtractor={(item) => item.CategoryId}
-                    />
-                </List>
+        if(loading){
+            return (
+                <Text>Loading</Text>
+            );
+        }
+
+        return (
+
+            <SectionList
+                sections={transformCategoriesToSections(categories.categories)}
+                renderSectionHeader={ ({section}) => <Text style={styles.SectionHeader}> { section.title } </Text> }
+                renderItem={ ({item}) => <Text style={styles.SectionListItemS} onPress={this.deleteCategory.bind(this, item.categoryId)}> {item.subCategory} </Text> }
+                keyExtractor={ (item) => item.categoryId}
+            />
+
         );
     }
+
+
 }
 
 const mapStateToProps = state => ({
@@ -60,3 +62,24 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(CategoryList);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: "#e5e5e5"
+    },
+    SectionHeader:{
+        backgroundColor : '#64B5F6',
+        fontSize : 20,
+        padding: 5,
+        color: '#fff',
+        fontWeight: 'bold'
+    },
+    SectionListItemS:{
+        fontSize : 16,
+        padding: 6,
+        color: '#000',
+        backgroundColor : '#F5F5F5'
+    }
+});

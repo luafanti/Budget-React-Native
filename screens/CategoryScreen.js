@@ -15,19 +15,15 @@ class CategoryScreen extends Component {
 
     render() {
         return (
-            <View >
-                <Provider store= {store}>
-                    <View>
-                        <Button title = 'Add'
-                                style = { styles.placeButton }
-                                onPress = { this.onClickHandler }
-                        />
-                        <CategoryFormModal/>
-                    </View>
-
+            <Provider store= {store}>
+                <Button title = 'Add'
+                        style = { styles.placeButton }
+                        onPress = { this.onClickHandler }
+                />
                 <CategoryList/>
-                </Provider>
-            </View>
+                <CategoryFormModal/>
+            </Provider>
+
         );
     }
 }

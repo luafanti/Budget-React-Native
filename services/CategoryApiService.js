@@ -5,7 +5,6 @@ export async function getCategory() {
     try {
         const response = await fetch(`${Config.API_GATEWAY_URL}/category`);
         const responseJson = await response.json();
-        // console.log(`RES ${JSON.stringify(responseJson)}`)
         return responseJson;
     } catch(error){
         console.error(error);
@@ -44,5 +43,24 @@ export async function deleteCategory(categoryId) {
     } catch(error){
         console.error(error);
     }
+}
+
+export function transformCategoriesToSections(categories) {
+    console.log(`SECTIONS IN ${JSON.stringify(categories)}`)
+    group = [];
+    if(categories != null && categories != undefined){
+        categories.forEach(function (a) {
+            if (!this[a.MainCategory]) {
+                this[a.MainCategory] = { title: a.MainCategory, data: [] };
+                group.push(this[a.MainCategory]);
+            }
+            this[a.MainCategory].data.push({subCategory: a.SubCategory, categoryId: a.CategoryId});
+        }, Object.create(null));
+
+
+
+    }
+    console.log(`SECTIONS OUT ${JSON.stringify(group)}`)
+    return group;
 }
 

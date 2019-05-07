@@ -1,30 +1,38 @@
 import React, {Component} from "react";
-import {StyleSheet, Text, TextInput, View} from "react-native";
+import {StyleSheet, Text, TextInput, View,Platform,Button,SectionList, Alert } from "react-native";
 import {Provider} from "react-redux";
 import store from "../config/store";
+
 import CategoryFormModal from '../components/CategoryFormModal';
 
 class TestScreen extends Component {
 
+
+    GetSectionListItem=(item)=>{
+        Alert.alert(item)
+    }
+
+
+
     render() {
         return (
 
-            <View style={styles.container}>
+            <View style={styles.container} >
 
 
-                <Provider store= {store}>
-                    <Text>USE STORE </Text>
+                        <SectionList
+                            sections={[
+                                { title: 'Username Starts with A', data: ['Amit', 'Anand', 'Abhishek'] },
+                                { title: 'Username Starts with B', data: ['Bikash', 'Bingo', 'Baby'] },
+                                { title: 'Username Starts with C', data: ['cat', 'cathy', 'Charan'] },
+                                { title: 'Username Starts with D', data: ['Deepak', 'Deepti', 'Dhananjay'] },
+                                { title: 'Username Starts with F', data: ['Fatay', 'Fanny', 'Fresher'] },
+                            ]}
+                            renderSectionHeader={ ({section}) => <Text style={styles.SectionHeader}> { section.title } </Text> }
+                            renderItem={ ({item}) => <Text style={styles.SectionListItemS} onPress={this.GetSectionListItem.bind(this, item)}> { item } </Text> }
+                            keyExtractor={ (item, index) => index }
+                        />
 
-
-
-                <TextInput
-                    style={{height: 40}}
-                    placeholder="Type here to translate!"
-                    onChangeText={(text) => this.setState({text})}
-                />
-
-                    <CategoryFormModal/>
-                </Provider>
             </View>
         );
     }
@@ -33,46 +41,24 @@ class TestScreen extends Component {
 
 export default TestScreen;
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "#e5e5e5"
     },
-    button: {
-        backgroundColor: "lightblue",
-        padding: 12,
-        margin: 16,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-        borderColor: "rgba(0, 0, 0, 0.1)",
+    SectionHeader:{
+        backgroundColor : '#64B5F6',
+        fontSize : 20,
+        padding: 5,
+        color: '#fff',
+        fontWeight: 'bold'
     },
-    modalContent: {
-        backgroundColor: "white",
-        padding: 22,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-        borderColor: "rgba(0, 0, 0, 0.1)",
-    },
-    bottomModal: {
-        justifyContent: "flex-end",
-        margin: 0,
-    },
-    scrollableModal: {
-        height: 300,
-    },
-    scrollableModalContent1: {
-        height: 200,
-        backgroundColor: "orange",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    scrollableModalContent2: {
-        height: 200,
-        backgroundColor: "lightgreen",
-        alignItems: "center",
-        justifyContent: "center",
-    },
+    SectionListItemS:{
+        fontSize : 16,
+        padding: 6,
+        color: '#000',
+        backgroundColor : '#F5F5F5'
+    }
 });

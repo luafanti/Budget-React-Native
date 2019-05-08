@@ -28,6 +28,23 @@ export async function addCategory(category) {
     }
 }
 
+export async function updateCategory(category) {
+    try {
+        const response = await fetch(`${Config.API_GATEWAY_URL}/category/${category.categoryId}`,
+            {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify(category)
+            }
+        );
+        const responseJson = await response.json();
+        console.log(`Response form EDIT category ${JSON.stringify(responseJson)}`)
+        return responseJson;
+    } catch(error){
+        console.error(error);
+    }
+}
+
 export async function deleteCategory(categoryId) {
 
     try {

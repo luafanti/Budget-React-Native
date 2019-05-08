@@ -54,7 +54,7 @@ export function transformCategoriesToSections(categories) {
                 this[a.MainCategory] = { title: a.MainCategory, data: [] };
                 group.push(this[a.MainCategory]);
             }
-            this[a.MainCategory].data.push({subCategory: a.SubCategory, categoryId: a.CategoryId});
+            this[a.MainCategory].data.push({subCategory: a.SubCategory, categoryId: a.CategoryId, mainCategory: a.MainCategory, label: a.Label});
         }, Object.create(null));
 
 

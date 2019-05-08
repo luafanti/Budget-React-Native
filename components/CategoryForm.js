@@ -1,6 +1,6 @@
 import { Field, reduxForm } from 'redux-form'
 
-import React from 'react'
+import React , {Component} from 'react'
 import {
     StyleSheet,
     Text,
@@ -14,34 +14,36 @@ import store from "../config/store";
 
 
 const renderInput = ({ input, input: { onChange, ...restInput }}) => {
-    return <TextInput style={styles.input} onChangeText={onChange} {...restInput} />
+    return <TextInput style={styles.input} onChangeText={onChange} {...restInput}/>
 }
 
-const CategoryForm = props => {
-    const { handleSubmit } = props
+const submit = values => {
+    console.log('Submitting form', values)
+    addCategory(values);
 
-    const submit = values => {
-        console.log('Submitting form', values)
-        addCategory(values);
+    this.setTimeout(() => {
+        store.dispatch(fetchCategories());
+    }, 200);
 
-        this.setTimeout(() => {
-            store.dispatch(fetchCategories());
-        }, 200);
+}
 
+class CategoryForm extends Component{
+
+    render() {
+        const { handleSubmit } = this.props
+        return (
+            <View style={styles.container}>
+                <Text>Email:</Text>
+                <Field name="mainCategory" component={renderInput} />
+                <Field name="subCategory" component={renderInput} />
+                <Field name="label" component={renderInput} />
+
+                <TouchableOpacity onPress={handleSubmit(submit)}>
+                    <Text style={styles.button}>Submit</Text>
+                </TouchableOpacity>
+            </View>
+        )
     }
-
-    return (
-        <View style={styles.container}>
-            <Text>Email:</Text>
-            <Field name="mainCategory" component={renderInput} />
-            <Field name="subCategory" component={renderInput} />
-            <Field name="label" component={renderInput} />
-
-            <TouchableOpacity onPress={handleSubmit(submit)}>
-                <Text style={styles.button}>Submit</Text>
-            </TouchableOpacity>
-        </View>
-    )
 };
 
 export default reduxForm({

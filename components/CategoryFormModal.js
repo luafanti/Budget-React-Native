@@ -11,11 +11,15 @@ import {showAddCategoryModal} from "../actions/CategoryActions";
 class CategoryFormModal extends Component{
 
     state = {
-        visibleModal: false
+        visibleModal: false,
+        selectedCategory: null
     };
 
     componentWillReceiveProps(props){
-        this.setState({visibleModal: props.visibleModal })
+        this.setState({
+            visibleModal: props.visibleModal,
+            selectedCategory: props.selectedCategory
+        })
 
     }
 
@@ -27,9 +31,17 @@ class CategoryFormModal extends Component{
         </TouchableOpacity>
     );
 
-    renderModalContent = () => (
+    renderAddCategoryModalContent = () => (
         <View style={styles.modalContent}>
-            <Text>Hello!</Text>
+            <Text>Add Category</Text>
+            <CategoryForm style={styles.container} />
+            {this.renderButton("Close", () => store.dispatch(showAddCategoryModal(false)))}
+        </View>
+    );
+
+    renderEditCategoryModalContent = () => (
+        <View style={styles.modalContent}>
+            <Text>Edit Category</Text>
             <CategoryForm style={styles.container} />
             {this.renderButton("Close", () => store.dispatch(showAddCategoryModal(false)))}
         </View>
@@ -37,21 +49,34 @@ class CategoryFormModal extends Component{
 
     render(){
 
-        return(
-        <View style={styles.container}>
-            <Modal isVisible={this.state.visibleModal === true}>
-                {this.renderModalContent()}
-            </Modal>
+        if(this.state.selectedCategory === null){
+            return(
+                <View style={styles.container}>
+                    <Modal isVisible={this.state.visibleModal === true}>
+                        {this.renderAddCategoryModalContent()}
+                    </Modal>
 
-        </View>
-        )
+                </View>
+            )
+        }
 
+        if(this.state.selectedCategory != null){
+            return(
+                <View style={styles.container}>
+                    <Modal isVisible={this.state.visibleModal === true}>
+                        {this.renderEditCategoryModalContent()}
+                    </Modal>
+
+                </View>
+            )
+        }
     }
 }
 
 const mapStateToProps = state => {
     return {
-        visibleModal: state.categoryModal.showModal
+        visibleModal: state.categoryModal.showModal,
+        selectedCategory: state.categoryModal.selectedCategory
     }
 }
 

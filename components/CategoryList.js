@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {SectionList, StyleSheet, Text} from "react-native";
-import {fetchCategories} from '../actions/CategoryActions'
+import {fetchCategories, showAddCategoryModal,showEditCategoryModal} from '../actions/CategoryActions'
 import {connect} from "react-redux";
 import {deleteCategory, transformCategoriesToSections} from "../services/CategoryApiService";
 import store from "../config/store";
@@ -16,13 +16,15 @@ class CategoryList extends Component {
         super(props);
     }
 
-    deleteCategory = (categoryId) => {
-        console.log('Selected Item :', categoryId);
-        deleteCategory(categoryId);
+    deleteCategory = (category) => {
+        // console.log('Selected Item :', categoryId);
+        // deleteCategory(categoryId);
+        //
+        // setTimeout(() => {
+        //     store.dispatch(fetchCategories());
+        // }, 200);
 
-        setTimeout(() => {
-            store.dispatch(fetchCategories());
-        }, 200);
+        store.dispatch(showEditCategoryModal(true,category));
     };
 
     render() {
@@ -39,16 +41,13 @@ class CategoryList extends Component {
                 <Text>Loading</Text>
             );
         }
-
         return (
-
             <SectionList
                 sections={transformCategoriesToSections(categories.categories)}
                 renderSectionHeader={ ({section}) => <Text style={styles.SectionHeader}> { section.title } </Text> }
-                renderItem={ ({item}) => <Text style={styles.SectionListItemS} onPress={this.deleteCategory.bind(this, item.categoryId)}> {item.subCategory} </Text> }
+                renderItem={ ({item}) => <Text style={styles.SectionListItemS} onPress={this.deleteCategory.bind(this, item)}> {item.subCategory} </Text> }
                 keyExtractor={ (item) => item.categoryId}
             />
-
         );
     }
 
